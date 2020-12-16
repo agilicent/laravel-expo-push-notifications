@@ -156,7 +156,8 @@ If you discover any security related issues, please email author email instead o
 
 ## Credits
 
-- [Nick Cousins][link-author]
+- [Nick Cousins](https://github.com/NickCousins)
+- [Relative](https://github.com/relativelimited)
 - [All Contributors][link-contributors]
 
 ## License
