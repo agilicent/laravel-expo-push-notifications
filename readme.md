@@ -15,7 +15,126 @@ Via Composer
 $ composer require relative/laravel-expo-push-notifications
 ```
 
+Run migrations
+
+``` bash
+$ php artisan migrate
+```
+
+Optional: Publish migrations & configuration
+
+``` bash
+$ php artisan vendor:publish --provider="Relative\LaravelExpoPushNotifications\ExpoPushNotificationsServiceProvider"
+```
+If you use UUIDs for your model `id` fields, publish the migrations and follow the instructions in the file to switch to string `id` columns.
+
 ## Usage
+
+### Setup your notifiable users
+
+To get started, add the `HasPushTokens` trait to your notifiable class(es), e.g. your `App\User` model
+
+```PHP
+<?php
+
+use Relative\LaravelExpoPushNotifications\Traits\HasPushTokens;
+
+class User {
+    use Notifiable, HasPushTokens;
+    
+    //
+}
+```
+
+### Register Push Tokens to your users
+
+Your Expo app will be able to generate a Push Token and POST it to a controller method in  your Laravel application,
+which can then register the token to that user, for example:
+
+```PHP
+<?php
+
+class PushNotificationController extends \Illuminate\Routing\Controller {
+
+    public function register(Request $request)
+    {
+        $token = $request->input('token');
+        $request->user()->pushTokens()->firstOrCreate(
+            ['token' => $token],
+            ['token' => $token],
+        );
+        return response()->status(200);
+    }
+
+}
+```
+ 
+### Notify a user about something
+
+Add `ExpoPushNotifications` to your `Notifiable` object
+```PHP
+<?php
+
+use Illuminate\Bus\Queueable;
+use Relative\LaravelExpoPushNotifications\ExpoPushNotifications;
+use Relative\LaravelExpoPushNotifications\PushNotification;
+
+class NewOrder extends \Illuminate\Notifications\Notification {
+
+    use Queueable;
+    
+    public $order;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @param $order
+     */
+    public function __construct($order)
+    {
+        $this->order = $order;
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param mixed $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return [ExpoPushNotifications::class];
+    }
+
+    public function toExpoPushNotification($notifiable)
+    {
+        return new PushNotification([
+            'title' => 'New order received',
+            'body' => "Order #{$this->order->id} is ready for processing",
+        ]);
+    }
+
+}
+```
+The constructor of the `PushNotification` class accepts an array of parameters matching the schema defined here:
+https://docs.expo.io/push-notifications/sending-notifications/#message-request-format
+
+The `PushNotification` class has constants for the `priority` and `sound` parameters:
+```
+PushNotification::PRIORITY_HIGH;
+PushNotification::PRIORITY_NORMAL;
+PushNotification::PRIORITY_DEFAULT;
+
+PushNotification::SOUND_DEFAULT;
+PushNotification::SOUND_NONE;
+```
+
+## Upcoming additions
+
+Planning to add:
+- Expressive syntax for message building, similar to Laravel's Mailables
+- Optional push ticket & receipt handling
+- Auto expiration of failing tokens
 
 ## Change log
 
