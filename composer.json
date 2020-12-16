@@ -1,6 +1,6 @@
 {
     "name": "relative/laravel-expo-push-notifications",
-    "description": "Laravel 5.1+ PHP 7.4+ Notifications Expo Push Notifications Driver",
+    "description": "Expo Push Notifications Driver for Laravel Notifications, PHP 7.4",
     "license": "MIT",
     "authors": [
         {
