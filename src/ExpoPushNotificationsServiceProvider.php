@@ -62,21 +62,8 @@ class ExpoPushNotificationsServiceProvider extends ServiceProvider
         ], 'expo-push-notifications.config');
 
         // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/relative'),
-        ], 'expo-push-notifications.views');*/
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/relative'),
-        ], 'expo-push-notifications.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/relative'),
-        ], 'expo-push-notifications.views');*/
-
-        // Registering package commands.
-        // $this->commands([]);
+        $this->publishes([
+            __DIR__.'/../database/migrations' => base_path('database/migrations'),
+        ], 'expo-push-notifications.migrations');
     }
 }
