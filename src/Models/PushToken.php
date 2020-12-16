@@ -25,6 +25,11 @@ class PushToken extends Model
         'expired_at' => 'timestamp',
     ];
 
+    protected $fillable = [
+        'token',
+        'meta'
+    ];
+
     protected $table = 'expo_push_tokens';
 
     public $timestamps = false;
