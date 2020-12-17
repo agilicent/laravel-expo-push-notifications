@@ -47,4 +47,70 @@ class PushNotification
             }
         }
     }
+
+    public function to($value): PushNotification
+    {
+        $this->to = $value;
+        return $this;
+    }
+
+    public function title(string $value): PushNotification
+    {
+        $this->title = $value;
+        return $this;
+    }
+
+    public function subtitle(string $value): PushNotification
+    {
+        $this->subtitle = $value;
+        return $this;
+    }
+
+    public function body(string $value): PushNotification
+    {
+        $this->body = $value;
+        return $this;
+    }
+
+    public function sound(string $value): PushNotification
+    {
+        $this->sound = $value;
+        return $this;
+    }
+
+    public function priority(string $value): PushNotification
+    {
+        $this->priority = $value;
+        return $this;
+    }
+
+    public function data(array $value): PushNotification
+    {
+        $this->data = $value;
+        return $this;
+    }
+
+    public function ttl(int $value): PushNotification
+    {
+        $this->ttl = $value;
+        return $this;
+    }
+
+    public function expiration(int $value): PushNotification
+    {
+        $this->expiration = $value;
+        return $this;
+    }
+
+    public function badge(int $value): PushNotification
+    {
+        $this->badge = $value;
+        return $this;
+    }
+
+    public function channelId(string $value): PushNotification
+    {
+        $this->channelId = $value;
+        return $this;
+    }
 }
