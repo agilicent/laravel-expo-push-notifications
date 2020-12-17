@@ -1,7 +1,7 @@
 # Laravel Expo Push Notifications
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/relative/laravel-expo-push-notifications.svg?style=flat-square)](https://packagist.org/packages/relative/laravel-expo-push-notifications)
+[![Total Downloads](https://img.shields.io/packagist/dt/relative/laravel-expo-push-notifications.svg?style=flat-square)](https://packagist.org/packages/relative/laravel-expo-push-notifications)
 
 An Expo Push Notifications driver for Laravel Notifications.
 
