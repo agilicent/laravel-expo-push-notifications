@@ -11,6 +11,6 @@ return [
     | Extensibility and testing
     |
     */
-    'service_url' => env('EXPO_SERVICE_URL', 'https://exp.host/--/api/v2/push/send'),
+    'service_url' => env('EXPO_SERVICE_URL', 'https://exp.host/--/api/v2/push'),
 
 ];

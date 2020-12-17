@@ -43,4 +43,14 @@ class PushToken extends Model
     {
         return $query->whereNull('expired_at');
     }
+
+    public static function findByReference($tokenReference)
+    {
+        return static::where('token', $tokenReference)->first();
+    }
+
+    public function expire()
+    {
+        $this->update(['expired_at' => Carbon::now()]);
+    }
 }
