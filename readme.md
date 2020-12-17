@@ -5,6 +5,10 @@
 
 An Expo Push Notifications driver for Laravel Notifications.
 
+Automatically expires PushTokens if they fail due to `DeviceNotRegistered` error, and won't use them again.
+
+Stores data about Push Notification delivery status.
+
 ## Installation
 
 Via Composer
@@ -106,16 +110,17 @@ class NewOrder extends \Illuminate\Notifications\Notification {
 
     public function toExpoPushNotification($notifiable)
     {
-        return new PushNotification([
-            'title' => 'New order received',
-            'body' => "Order #{$this->order->id} is ready for processing",
-        ]);
+        return (new PushNotification)
+            ->title('New order received')
+            ->body("Order #{$this->order->id} is ready for processing");
     }
 
 }
 ```
 The constructor of the `PushNotification` class accepts an array of parameters matching the schema defined here:
 https://docs.expo.io/push-notifications/sending-notifications/#message-request-format
+
+Alternatively you can use the expressive API, in Laravel style as shown above.
 
 The `PushNotification` class has constants for the `priority` and `sound` parameters:
 ```
@@ -126,13 +131,6 @@ PushNotification::PRIORITY_DEFAULT;
 PushNotification::SOUND_DEFAULT;
 PushNotification::SOUND_NONE;
 ```
-
-## Upcoming additions
-
-Planning to add:
-- Expressive syntax for message building, similar to Laravel's Mailables
-- Optional push ticket & receipt handling
-- Auto expiration of failing tokens
 
 ## Change log
 
