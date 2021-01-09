@@ -39,7 +39,7 @@ class PushNotification
 
     public string $channelId;
 
-    public function __construct(array $attributes)
+    public function __construct(array $attributes = [])
     {
         foreach($attributes as $key => $value) {
             if (property_exists(static::class, $key)) {
