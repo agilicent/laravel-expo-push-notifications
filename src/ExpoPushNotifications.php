@@ -66,14 +66,16 @@ class ExpoPushNotifications
      */
     public function createPushNotificationRecord($ticket, $token, \Ramsey\Uuid\UuidInterface $batchId, $notification, $notifiable)
     {
+        $pushToken = PushToken::findByReference($token);
         $status = $ticket['status'] === 'error' ? 'error' : 'unknown';
         if ($status === 'error' && $ticket['details']['error'] === 'DeviceNotRegistered') {
             try {
-                PushToken::findByReference($token)->expire();
+                $pushToken->expire();
             } catch (\Exception $exception) {
                 Log::error("Unable to find token $token to expire");
             }
         }
+        $pushToken->touch();
         return \Relative\LaravelExpoPushNotifications\Models\PushNotification::create([
             'batch_id' => $batchId,
             'notification' => (array)$notification,
@@ -96,7 +98,7 @@ class ExpoPushNotifications
         collect($tickets)->map(function ($ticket, $index) use ($pushNotifications, $receipts) {
             $pushNotification = $pushNotifications[$index];
             if (isset($ticket['id'])) {
-                $pushNotification->status = $receipts[$index]['status'];
+                $pushNotification->status = $receipts[$index]['status'] ?? 'unknown';
                 if ($pushNotification->status === 'error') {
                     $pushNotification->errors = $receipts[$pushNotification->ticket]['details']['error'];
                 }

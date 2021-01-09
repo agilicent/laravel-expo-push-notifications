@@ -27,7 +27,9 @@ class PushToken extends Model
 
     protected $fillable = [
         'token',
-        'meta'
+        'meta',
+        'expired_at',
+        'last_used_at',
     ];
 
     protected $table = 'expo_push_tokens';
@@ -52,5 +54,10 @@ class PushToken extends Model
     public function expire()
     {
         $this->update(['expired_at' => Carbon::now()]);
+    }
+
+    public function touch()
+    {
+        $this->update(['last_used_at' => Carbon::now()]);
     }
 }
