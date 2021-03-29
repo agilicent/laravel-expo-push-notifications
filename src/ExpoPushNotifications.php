@@ -39,8 +39,9 @@ class ExpoPushNotifications
             'Accept' => 'application/json',
             'Accept-encoding' => 'gzip, deflate',
             'Content-Type' => 'application/json'
-        ])->post("$this->baseUrl/send", (array)$pushNotification);
-        return $response->json()['data'];
+        ])->post("{$this->baseUrl}/send", (array)$pushNotification);
+        $responseJson = $response->json();
+        return $responseJson['data'] ?? [];
     }
 
     public function fetchReceipts(array $tickets): array
