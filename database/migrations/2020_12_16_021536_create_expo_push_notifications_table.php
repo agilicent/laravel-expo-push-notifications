@@ -16,6 +16,7 @@ class CreateExpoPushNotificationsTable extends Migration
     {
         Schema::create('expo_push_notifications', function (Blueprint $table) {
             $table->id();
+            $table->string('batch_id');
             $table->json('notification');
             $table->string('ticket')->nullable();
 //            Uncomment the next line, and comment out the following line if you use UUIDs as your primary key
