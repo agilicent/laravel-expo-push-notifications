@@ -1,8 +1,5 @@
 <?php
-
-
 namespace Relative\LaravelExpoPushNotifications\Models;
-
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,9 +18,7 @@ class PushNotification extends Model
 {
     protected $table = 'expo_push_notifications';
 
-    protected $fillable = [
-        'notification','ticket','notifiable_id','notifiable_type','token','error', 'status'
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'notification' => 'array',
