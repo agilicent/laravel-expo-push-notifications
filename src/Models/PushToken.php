@@ -56,7 +56,7 @@ class PushToken extends Model
         $this->update(['expired_at' => Carbon::now()]);
     }
 
-    public function touch()
+    public function touch($attribute = null)
     {
         $this->update(['last_used_at' => Carbon::now()]);
     }
